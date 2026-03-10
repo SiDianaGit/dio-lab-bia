@@ -1,0 +1,128 @@
+{
+  "mercado": "Brasil",
+  "data_referencia": "2026-03",
+  "moeda": "BRL",
+  "fontes_recomendadas_atualizacao": ["API Open Finance Brasil", "SGS - Sistema Gerenciador de Séries Temporais (Bacen)"],
+  "produtos_credito": [
+    {
+      "id": "EMP_CONSIG_INSS",
+      "nome": "Empréstimo Consignado INSS",
+      "descricao": "Crédito com desconto direto em folha para aposentados e pensionistas do INSS.",
+      "taxa_juros_remuneratorios_geral": {
+        "tipo": "prefixada",
+        "unidade": "percentual_ao_mes",
+        "teto_regulatorio": 1.66
+      },
+      "instituicoes_financeiras": [
+        { "nome": "Caixa Econômica Federal", "taxa_juros_mensal_media": 1.50, "disponibilidade": "Alta" },
+        { "nome": "Banco do Brasil", "taxa_juros_mensal_media": 1.54, "disponibilidade": "Alta" },
+        { "nome": "Banco Pan", "taxa_juros_mensal_media": 1.64, "disponibilidade": "Alta" },
+        { "nome": "Banco BMG", "taxa_juros_mensal_media": 1.62, "disponibilidade": "Alta" },
+        { "nome": "Banco Daycoval", "taxa_juros_mensal_media": 1.58, "disponibilidade": "Alta" },
+        { "nome": "Itaú Consignado", "taxa_juros_mensal_media": 1.55, "disponibilidade": "Alta" },
+        { "nome": "Banco Mercantil do Brasil", "taxa_juros_mensal_media": 1.65, "disponibilidade": "Alta" },
+        { "nome": "Crefisa", "taxa_juros_mensal_media": 1.66, "disponibilidade": "Media" }
+      ],
+      "tarifas_cet": [
+        { "nome": "IOF_Fixo", "tipo": "tributo", "aliquota": 0.0038, "base_calculo": "valor_financiado" },
+        { "nome": "IOF_Diario", "tipo": "tributo", "aliquota": 0.000082, "base_calculo": "valor_financiado_vezes_dias", "limite_maximo": 0.03 }
+      ],
+      "encargos_inadimplencia": {
+        "multa_atraso_percentual": 2.0,
+        "juros_mora_percentual_ao_mes": 1.0,
+        "correcao_monetaria": null
+      }
+    },
+    {
+      "id": "EMP_PESSOAL_CHQ",
+      "nome": "Empréstimo Pessoal (Não Consignado)",
+      "descricao": "Crédito pessoal sem garantia para pessoa física.",
+      "taxa_juros_remuneratorios_geral": {
+        "tipo": "prefixada",
+        "unidade": "percentual_ao_mes"
+      },
+      "instituicoes_financeiras": [
+        { "nome": "Nubank", "taxa_juros_mensal_media": 4.80, "disponibilidade": "Alta" },
+        { "nome": "Banco Inter", "taxa_juros_mensal_media": 4.50, "disponibilidade": "Alta" },
+        { "nome": "C6 Bank", "taxa_juros_mensal_media": 5.10, "disponibilidade": "Media" },
+        { "nome": "Itaú Unibanco", "taxa_juros_mensal_media": 5.40, "disponibilidade": "Alta" },
+        { "nome": "Bradesco", "taxa_juros_mensal_media": 5.80, "disponibilidade": "Alta" },
+        { "nome": "Santander", "taxa_juros_mensal_media": 5.20, "disponibilidade": "Alta" },
+        { "nome": "Banco do Brasil", "taxa_juros_mensal_media": 4.90, "disponibilidade": "Alta" },
+        { "nome": "Sicredi", "taxa_juros_mensal_media": 3.90, "disponibilidade": "Restrita a cooperados" },
+        { "nome": "Sicoob", "taxa_juros_mensal_media": 3.85, "disponibilidade": "Restrita a cooperados" },
+        { "nome": "PicPay", "taxa_juros_mensal_media": 6.50, "disponibilidade": "Alta" }
+      ],
+      "tarifas_cet": [
+        { "nome": "Tarifa de Cadastro (TAC)", "tipo": "tarifa_bancaria", "valor_fixo_medio": 50.00, "base_calculo": "cobranca_unica_inicio" },
+        { "nome": "Seguro Prestamista", "tipo": "seguro", "aliquota": 0.02, "base_calculo": "valor_financiado", "opcional": true },
+        { "nome": "IOF_Fixo", "tipo": "tributo", "aliquota": 0.0038, "base_calculo": "valor_financiado" },
+        { "nome": "IOF_Diario", "tipo": "tributo", "aliquota": 0.000082, "base_calculo": "valor_financiado_vezes_dias" }
+      ],
+      "encargos_inadimplencia": {
+        "multa_atraso_percentual": 2.0,
+        "juros_mora_percentual_ao_mes": 1.0,
+        "correcao_monetaria": "IGP-M",
+        "comissao_permanencia": "Limitada à taxa do contrato"
+      }
+    },
+    {
+      "id": "FIN_IMOB_SFH",
+      "nome": "Financiamento Imobiliário (SFH)",
+      "descricao": "Financiamento de imóveis residenciais dentro do SFH.",
+      "taxa_juros_remuneratorios_geral": {
+        "tipo": "posfixada",
+        "unidade": "percentual_ao_ano",
+        "indexador": "TR"
+      },
+      "instituicoes_financeiras": [
+        { "nome": "Caixa Econômica Federal", "taxa_juros_anual_media": 8.99, "disponibilidade": "Alta" },
+        { "nome": "Itaú Unibanco", "taxa_juros_anual_media": 9.49, "disponibilidade": "Alta" },
+        { "nome": "Santander", "taxa_juros_anual_media": 9.99, "disponibilidade": "Alta" },
+        { "nome": "Bradesco", "taxa_juros_anual_media": 9.89, "disponibilidade": "Alta" },
+        { "nome": "Banco do Brasil", "taxa_juros_anual_media": 9.29, "disponibilidade": "Alta" },
+        { "nome": "Banco Inter", "taxa_juros_anual_media": 9.50, "disponibilidade": "Media" },
+        { "nome": "Poupex", "taxa_juros_anual_media": 8.80, "disponibilidade": "Restrita (foco em militares/servidores)" }
+      ],
+      "tarifas_cet": [
+        { "nome": "Tarifa de Avaliação", "tipo": "tarifa_bancaria", "valor_fixo_medio": 3500.00, "base_calculo": "cobranca_unica_inicio" },
+        { "nome": "Seguro MIP", "tipo": "seguro", "aliquota_mensal_estimada": 0.0002, "base_calculo": "saldo_devedor", "opcional": false },
+        { "nome": "Seguro DFI", "tipo": "seguro", "aliquota_mensal_estimada": 0.0001, "base_calculo": "valor_avaliacao_imovel", "opcional": false }
+      ],
+      "encargos_inadimplencia": {
+        "multa_atraso_percentual": 2.0,
+        "juros_mora_percentual_ao_mes": 1.0,
+        "correcao_monetaria": "TR"
+      }
+    },
+    {
+      "id": "CARTAO_ROTATIVO",
+      "nome": "Rotativo do Cartão de Crédito",
+      "descricao": "Crédito automático sobre saldo devedor da fatura.",
+      "taxa_juros_remuneratorios_geral": {
+        "tipo": "prefixada",
+        "unidade": "percentual_ao_mes",
+        "observacao": "Limitado a 100% do valor do principal."
+      },
+      "instituicoes_financeiras": [
+        { "nome": "Itaú Unibanco", "taxa_juros_mensal_media": 13.50, "disponibilidade": "Alta" },
+        { "nome": "Bradesco", "taxa_juros_mensal_media": 14.10, "disponibilidade": "Alta" },
+        { "nome": "Nubank", "taxa_juros_mensal_media": 11.50, "disponibilidade": "Alta" },
+        { "nome": "Santander", "taxa_juros_mensal_media": 14.50, "disponibilidade": "Alta" },
+        { "nome": "Banco do Brasil", "taxa_juros_mensal_media": 12.80, "disponibilidade": "Alta" },
+        { "nome": "C6 Bank", "taxa_juros_mensal_media": 15.20, "disponibilidade": "Alta" },
+        { "nome": "Banco Inter", "taxa_juros_mensal_media": 10.90, "disponibilidade": "Alta" },
+        { "nome": "Banco BV", "taxa_juros_mensal_media": 16.00, "disponibilidade": "Alta" }
+      ],
+      "tarifas_cet": [
+        { "nome": "IOF_Fixo", "tipo": "tributo", "aliquota": 0.0038, "base_calculo": "valor_financiado" },
+        { "nome": "IOF_Diario", "tipo": "tributo", "aliquota": 0.000082, "base_calculo": "valor_financiado_vezes_dias" }
+      ],
+      "encargos_inadimplencia": {
+        "multa_atraso_percentual": 2.0,
+        "juros_mora_percentual_ao_mes": 1.0,
+        "correcao_monetaria": null
+      }
+    }
+  ]
+}
