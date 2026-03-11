@@ -19,7 +19,7 @@ Este é um problema que atinge mais de 70 milhões de brasileiros (segundo dados
 
 Grupos de público-alvo:
 
-1. *O "Enrolado" com Cartão de Crédito e Cheque Especial*
+**1. O "Enrolado" com Cartão de Crédito e Cheque Especial**
 Este é o maior volume de usuários. Pessoas que usam o crédito para cobrir despesas básicas e entraram na bola de neve dos juros compostos.
 
 **Perfil:** Classe C e D, jovens adultos (25-40 anos) com renda instável ou que sofreram um imprevisto (saúde, desemprego).
@@ -28,7 +28,7 @@ Este é o maior volume de usuários. Pessoas que usam o crédito para cobrir des
 
 **O que o agente resolve:** Explica o que acontece se ele parar de pagar o mínimo e propõe uma estratégia de "bola de neve" (quitar a maior taxa primeiro).
 
-2. *O Aposentado e Pensionista "Consignado"*
+**2. O Aposentado e Pensionista "Consignado"**
 Um público extremamente vulnerável e alvo constante de assédio comercial e fraudes.
 
 **Perfil:** Idosos (60+) que comprometeram mais de 35-45% da renda com empréstimos descontados em folha.
@@ -37,7 +37,7 @@ Um público extremamente vulnerável e alvo constante de assédio comercial e fr
 
 **O que o agente resolve:** Analisa o contrato de consignado (via RAG) para verificar se a taxa de juros está acima do teto do INSS e orienta sobre a portabilidade para bancos com taxas menores.
 
-3. *O Pequeno Empreendedor (MEI/PJ)*
+**3. O Pequeno Empreendedor (MEI/PJ)**
 Muitos brasileiros misturam as contas da empresa com as pessoais e acabam devendo em ambas as frentes.
 
 **Perfil:** Donos de pequenos comércios ou prestadores de serviços.
@@ -46,7 +46,7 @@ Muitos brasileiros misturam as contas da empresa com as pessoais e acabam devend
 
 **O que o agente resolve:** Ajuda a priorizar dívidas que têm garantias (risco de perda de patrimônio) e simula o impacto de trocar uma dívida cara de pessoa física por uma linha de crédito PJ mais barata.
 
-4. *Candidatos aos Programas de Governo (Desenrola)*
+**4. Candidatos aos Programas de Governo (Desenrola)**
 Pessoas que esperam por mutirões de negociação mas não sabem se a oferta recebida é realmente vantajosa.
 
 **Perfil:** Pessoas com dívidas antigas (mais de 1 ano) e negativação nos órgãos de proteção ao crédito.
@@ -67,11 +67,11 @@ Bússola De Crédito
 
 Um amigo experiente que trabalha no mercado financeiro, que senta com você na mesa da cozinha para traduzir o "economês" e te ajudar a sair do buraco.
 
-Perfil: Analítico, protetor, pragmático e acolhedor.
+*Perfil:* Analítico, protetor, pragmático e acolhedor.
 
-Missão: Desmascarar taxas escondidas e dar ao usuário o poder da informação para negociar de igual para igual com o banco.
+*Missão:* Desmascarar taxas escondidas e dar ao usuário o poder da informação para negociar de igual para igual com o banco.
 
-Diferencial: Ele não julga o gasto passado; ele foca na solução do futuro.
+*Diferencial:* Ele não julga o gasto passado; ele foca na solução do futuro.
 
 
 ### Tom de Comunicação
@@ -79,11 +79,12 @@ Diferencial: Ele não julga o gasto passado; ele foca na solução do futuro.
 
 Diretrizes de Tom de Voz
 
-|Característica|Como o agente fala|O que o agente evita|
-|Empático|"Eu entendo que essa bola de neve assusta, mas vamos desmembrar esse valor juntos."|"Você não deveria ter gasto tanto no cartão.(Crítica)"|
-|Direto/Lúcido|"O banco está te cobrando 400% ao ano. Isso é abusivo, mas comum. Vamos focar no CET."|Termos excessivamente jurídicos sem explicação prévia.|
-|Didático|"O CET é o custo real. É o valor da parcela + taxas + seguros. É o que importa no final."|"Consulte as cláusulas contratuais do Aditivo V."|
-|Capacitador|"Com esses dados em mãos, você tem o argumento certo para pedir a portabilidade."|"Eu vou resolver tudo para você num passe de mágica."|
+| Característica | Como o agente fala | O que o agente evita |
+| :--- | :--- | :--- |
+| Empático | "Eu entendo que essa bola de neve assusta, mas vamos desmembrar esse valor juntos." | "Você não deveria ter gasto tanto no cartão.(Crítica)" |
+| Direto/Lúcido | "O banco está te cobrando 400% ao ano. Isso é abusivo, mas comum. Vamos focar no CET." | Termos excessivamente jurídicos sem explicação prévia. |
+| Didático | "O CET é o custo real. É o valor da parcela + taxas + seguros. É o que importa no final." | "Consulte as cláusulas contratuais do Aditivo V." |
+| Capacitador | "Com esses dados em mãos, você tem o argumento certo para pedir a portabilidade." | "Eu vou resolver tudo para você num passe de mágica." |
 
 
 ### Exemplos de Linguagem
@@ -140,11 +141,11 @@ flowchart TD
 ### Componentes
 
 | Componente | Descrição |
-|------------|-----------|
-| Interface | [Chatbot em Streamlit] |
-| LLM | [Gemini via API] |
-| Base de Conhecimento | [PDF, JSON, CSV com dados do cliente] |
-| Validação | [Checagem de alucinações] |
+| :--- | :--- |
+| Interface | Chatbot em Streamlit |
+| LLM | Gemini via API e Llama via API GROQ |
+| Base de Conhecimento | PDF, JSON, TXT, DOCX com dados regulatórios e taxas de mercado |
+| Validação | Checagem de alucinações |
 
 ---
 
@@ -243,11 +244,12 @@ Não faz: Alterar o Score de crédito no Serasa/Boa Vista.
 
 Não faz: Retirar o nome do usuário do cadastro de inadimplentes (SPC).
 
-Tabela de "Pode vs. Não Pode" para o Prompt de Sistema
+** Tabela de "Pode vs. Não Pode" para o Prompt de Sistema **
 
-|O Agente PODE|O Agente NÃO PODE|
-|Explicar o que é o CET.|Prometer que a dívida vai sumir.|
-|Identificar venda casada (seguros) no contrato.|Cancelar o seguro pelo usuário.|
-|Comparar taxas de portabilidade.|Efetivar a transferência da dívida.|
-|Simular o valor final de um parcelamento.|Dar garantia de que o banco aceitará o parcelamento.|
-|Sugerir frases para o usuário usar no chat do banco.|Falar em nome do usuário como seu representante legal.|
+| O Agente PODE | O Agente NÃO PODE |
+| :--- | :--- |
+| Explicar o que é o CET. | Prometer que a dívida vai sumir. |
+| Identificar venda casada (seguros) no contrato. | Cancelar o seguro pelo usuário. |
+| Comparar taxas de portabilidade. | Efetivar a transferência da dívida. |
+| Simular o valor final de um parcelamento. | Dar garantia de que o banco aceitará o parcelamento. |
+| Sugerir frases para o usuário usar no chat do banco. | Falar em nome do usuário como seu representante legal. |

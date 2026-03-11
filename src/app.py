@@ -12,7 +12,6 @@ def inicializar_banco_vetorial():
     criar_base_conhecimento()
     print("Base de conhecimento 'Regulatory' criada com sucesso!")
     return True
-
 # O Streamlit vai rodar isso, guardar o resultado no cache e 
 # pular a execução nas próximas vezes.
 base_pronta = inicializar_banco_vetorial()

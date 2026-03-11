@@ -1,149 +1,94 @@
-# 🤖 Agente Financeiro Inteligente com IA Generativa
+# 🧭 Bússola de Crédito
 
-## Contexto
+O **Bússola de Crédito** é um agente de Inteligência Artificial com base em RAG (Retrieval-Augmented Generation) criado para auxiliar os brasileiros na análise de dívidas financeiras. Ele atua como um assistente empático e didático, capaz de traduzir o jargão financeiro ("economês") de contratos bancários, ajudando o usuário a entender suas opções e encontrar o melhor caminho para sair das dívidas.
 
-Os assistentes virtuais no setor financeiro estão evoluindo de simples chatbots reativos para **agentes inteligentes e proativos**. Neste desafio, você vai idealizar e prototipar um agente financeiro que utiliza IA Generativa para:
+> **Aviso Legal:** O Bússola atua como um assistente informativo. Ele não executa pagamentos, não substitui assessoria jurídica formal e não garante aprovação de acordos de crédito.
 
-- **Antecipar necessidades** ao invés de apenas responder perguntas
-- **Personalizar** sugestões com base no contexto de cada cliente
-- **Cocriar soluções** financeiras de forma consultiva
-- **Garantir segurança** e confiabilidade nas respostas (anti-alucinação)
+## ✨ Funcionalidades
 
-> [!TIP]
-> Na pasta [`examples/`](./examples/) você encontra referências de implementação para cada etapa deste desafio.
+* **Análise de Documentos:** Suporte para upload e leitura de contratos e faturas nos formatos `PDF`, `TXT`, `DOC` e `DOCX`.
+* **Chat Conversacional:** Interface intuitiva em formato de chat para interagir com os documentos enviados e tirar dúvidas sobre taxas e juros.
+* **Busca em Base Regulatória:** Utiliza um banco de dados vetorial (FAISS) para consultar leis e regulamentações financeiras aplicáveis ao contexto do usuário.
+* **Cálculo Transparente:** Capacidade de calcular juros compostos de forma educativa, explicando o passo a passo da evolução da dívida.
 
----
+## 🛠️ Tecnologias Utilizadas
 
-## O Que Você Deve Entregar
+O projeto foi construído utilizando as seguintes ferramentas e bibliotecas:
 
-### 1. Documentação do Agente
+* **[Streamlit](https://streamlit.io/):** Framework para a construção da interface web interativa.
+* **[LangChain](https://python.langchain.com/):** Orquestração dos fluxos de LLM e integração com a base de conhecimento.
+* **Google Generative AI Embeddings:** Geração de embeddings (`models/gemini-embedding-001`) para a base de documentos.
+* **Groq:** Provedor do LLM principal responsável por interpretar e responder às dúvidas.
+* **[FAISS](https://github.com/facebookresearch/faiss):** Banco de dados vetorial otimizado para busca de similaridade local.
+* **PyPDF2 & python-docx:** Bibliotecas para extração de texto estruturado dos arquivos enviados pelo usuário.
 
-Defina **o que** seu agente faz e **como** ele funciona:
+## 📁 Estrutura do Projeto
 
-- **Caso de Uso:** Qual problema financeiro ele resolve? (ex: consultoria de investimentos, planejamento de metas, alertas de gastos)
-- **Persona e Tom de Voz:** Como o agente se comporta e se comunica?
-- **Arquitetura:** Fluxo de dados e integração com a base de conhecimento
-- **Segurança:** Como evitar alucinações e garantir respostas confiáveis?
+```text
+├── data/
+│   ├── Regulatory/             # Arquivos PDF com regulamentações (ex: Leis, Resoluções do BC)
+│   └── produtos_credito.json   # Dados estruturados de produtos financeiros e taxas de mercado
+├── docs/                       # Documentação do projeto e roteiro do Pitch
+├── faiss_regulatory_index/     # Pasta gerada automaticamente contendo o banco vetorial FAISS
+├── src/
+│   ├── app.py                  # Ponto de entrada da aplicação e interface Streamlit
+│   ├── agente.py               # Lógica do agente Bússola, prompt de sistema e integração LLM
+│   ├── config.py               # Configurações globais e instâncias de modelos
+│   └── vector_store.py         # Scripts de ingestão de dados e criação dos embeddings
+├── requirements.txt            # Dependências do projeto
+└── README.md                   # Esta documentação
 
-📄 **Template:** [`docs/01-documentacao-agente.md`](./docs/01-documentacao-agente.md)
 
----
+## 🚀 Como Executar Localmente
 
-### 2. Base de Conhecimento
+### Pré-requisitos
+* Python 3.9+ instalado.
+* Chaves de API do **Google** (para embeddings) e do **Groq** (para o LLM).
 
-Utilize os **dados mockados** disponíveis na pasta [`data/`](./data/) para alimentar seu agente:
+### Passos para Instalação
 
-| Arquivo | Formato | Descrição |
-|---------|---------|-----------|
-| `transacoes.csv` | CSV | Histórico de transações do cliente |
-| `historico_atendimento.csv` | CSV | Histórico de atendimentos anteriores |
-| `perfil_investidor.json` | JSON | Perfil e preferências do cliente |
-| `produtos_financeiros.json` | JSON | Produtos e serviços disponíveis |
+1. **Clone o repositório:**
+   ```bash
+   git clone <url-do-seu-repositorio>
+   cd dio-lab-bia
 
-Você pode adaptar ou expandir esses dados conforme seu caso de uso.
+2. **Crie e ative um ambiente virtual (recomendado):**
+    ```bash
+    python -m venv venv
+    # No Windows:
+    venv\Scripts\activate
+    # No Linux/Mac:
+    source venv/bin/activate
 
-📄 **Template:** [`docs/02-base-conhecimento.md`](./docs/02-base-conhecimento.md)
+3. **Instale as dependências:**
+    ```bash
+    pip install -r requirements.txt  
 
----
+4. **Configure as Variáveis de Ambiente:**
+   Crie um arquivo `.env` na raiz do projeto e adicione suas chaves: 
+    ```
+    GEMINI_API_KEY=sua_chave_do_google_aqui
+    GROQ_API_KEY=sua_chave_do_groq_aqui
+    ```
 
-### 3. Prompts do Agente
+5. **Inicie a aplicação:**
+    ```bash
+    streamlit run src/app.py
 
-Documente os prompts que definem o comportamento do seu agente:
+    *A interface abrirá automaticamente no seu navegador padrão (geralmente em http://localhost:8501).*
 
-- **System Prompt:** Instruções gerais de comportamento e restrições
-- **Exemplos de Interação:** Cenários de uso com entrada e saída esperada
-- **Tratamento de Edge Cases:** Como o agente lida com situações limite
+## 🧠 Como o RAG Funciona no Projeto
 
-📄 **Template:** [`docs/03-prompts.md`](./docs/03-prompts.md)
+1. **Ingestão:** Ao iniciar o sistema, a função `criar_base_conhecimento` lê os PDFs regulatórios na pasta `data/Regulatory/` e o catálogo `produtos_credito.json`, gerando chunks de texto.
 
----
+2. **Vetorização:** Esses textos são transformados em *embeddings* pela API do Google e armazenados localmente no FAISS.
 
-### 4. Aplicação Funcional
+3. **Recuperação e Geração:** Quando o usuário faz uma pergunta, o app busca o contexto mais relevante nas leis (recuperação) e injeta essa informação no *prompt* junto com o texto do contrato enviado pelo usuário. O LLM (Groq) usa essa combinação para elaborar uma resposta altamente embasada.
 
-Desenvolva um **protótipo funcional** do seu agente:
 
-- Chatbot interativo (sugestão: Streamlit, Gradio ou similar)
-- Integração com LLM (via API ou modelo local)
-- Conexão com a base de conhecimento
+## 🔮 Melhorias Futuras
 
-📁 **Pasta:** [`src/`](./src/)
+O Bússola de Crédito é um projeto em contínua evolução. Para tornar as análises ainda mais precisas e conectadas com a realidade econômica do momento, as seguintes implementações estão planejadas para o futuro:
 
----
-
-### 5. Avaliação e Métricas
-
-Descreva como você avalia a qualidade do seu agente:
-
-**Métricas Sugeridas:**
-- Precisão/assertividade das respostas
-- Taxa de respostas seguras (sem alucinações)
-- Coerência com o perfil do cliente
-
-📄 **Template:** [`docs/04-metricas.md`](./docs/04-metricas.md)
-
----
-
-### 6. Pitch
-
-Grave um **pitch de 3 minutos** (estilo elevador) apresentando:
-
-- Qual problema seu agente resolve?
-- Como ele funciona na prática?
-- Por que essa solução é inovadora?
-
-📄 **Template:** [`docs/05-pitch.md`](./docs/05-pitch.md)
-
----
-
-## Ferramentas Sugeridas
-
-Todas as ferramentas abaixo possuem versões gratuitas:
-
-| Categoria | Ferramentas |
-|-----------|-------------|
-| **LLMs** | [ChatGPT](https://chat.openai.com/), [Copilot](https://copilot.microsoft.com/), [Gemini](https://gemini.google.com/), [Claude](https://claude.ai/), [Ollama](https://ollama.ai/) |
-| **Desenvolvimento** | [Streamlit](https://streamlit.io/), [Gradio](https://www.gradio.app/), [Google Colab](https://colab.research.google.com/) |
-| **Orquestração** | [LangChain](https://www.langchain.com/), [LangFlow](https://www.langflow.org/), [CrewAI](https://www.crewai.com/) |
-| **Diagramas** | [Mermaid](https://mermaid.js.org/), [Draw.io](https://app.diagrams.net/), [Excalidraw](https://excalidraw.com/) |
-
----
-
-## Estrutura do Repositório
-
-```
-📁 lab-agente-financeiro/
-│
-├── 📄 README.md
-│
-├── 📁 data/                          # Dados mockados para o agente
-│   ├── historico_atendimento.csv     # Histórico de atendimentos (CSV)
-│   ├── perfil_investidor.json        # Perfil do cliente (JSON)
-│   ├── produtos_financeiros.json     # Produtos disponíveis (JSON)
-│   └── transacoes.csv                # Histórico de transações (CSV)
-│
-├── 📁 docs/                          # Documentação do projeto
-│   ├── 01-documentacao-agente.md     # Caso de uso e arquitetura
-│   ├── 02-base-conhecimento.md       # Estratégia de dados
-│   ├── 03-prompts.md                 # Engenharia de prompts
-│   ├── 04-metricas.md                # Avaliação e métricas
-│   └── 05-pitch.md                   # Roteiro do pitch
-│
-├── 📁 src/                           # Código da aplicação
-│   └── app.py                        # (exemplo de estrutura)
-│
-├── 📁 assets/                        # Imagens e diagramas
-│   └── ...
-│
-└── 📁 examples/                      # Referências e exemplos
-    └── README.md
-```
-
----
-
-## Dicas Finais
-
-1. **Comece pelo prompt:** Um bom system prompt é a base de um agente eficaz
-2. **Use os dados mockados:** Eles garantem consistência e evitam problemas com dados sensíveis
-3. **Foque na segurança:** No setor financeiro, evitar alucinações é crítico
-4. **Teste cenários reais:** Simule perguntas que um cliente faria de verdade
-5. **Seja direto no pitch:** 3 minutos passam rápido, vá ao ponto
+* **Busca Ampla na Internet:** Integração de ferramentas de pesquisa web (Web Search Agents) para permitir que o assistente busque contextos adicionais, notícias financeiras e orientações gerais que vão além da sua base de dados local.
+* **Integração com APIs Oficiais:** Conexão direta com APIs abertas do **Banco Central do Brasil (BCB)** (como a API do Sistema Gerenciador de Séries Temporais - SGS) e de outras **instituições financeiras** (Open Finance). Isso permitirá que o agente consulte taxas de juros atualizadas em tempo real, novos tetos regulatórios e condições de mercado atuais para fundamentar ainda mais os seus cálculos e conselhos.
