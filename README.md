@@ -37,7 +37,7 @@ O projeto foi construído utilizando as seguintes ferramentas e bibliotecas:
 │   └── vector_store.py         # Scripts de ingestão de dados e criação dos embeddings
 ├── requirements.txt            # Dependências do projeto
 └── README.md                   # Esta documentação
-
+```
 
 ## 🚀 Como Executar Localmente
 
@@ -51,6 +51,7 @@ O projeto foi construído utilizando as seguintes ferramentas e bibliotecas:
    ```bash
    git clone <url-do-seu-repositorio>
    cd dio-lab-bia
+    ```
 
 2. **Crie e ative um ambiente virtual (recomendado):**
     ```bash
@@ -59,10 +60,12 @@ O projeto foi construído utilizando as seguintes ferramentas e bibliotecas:
     venv\Scripts\activate
     # No Linux/Mac:
     source venv/bin/activate
+    ```
 
 3. **Instale as dependências:**
     ```bash
     pip install -r requirements.txt  
+    ``` 
 
 4. **Configure as Variáveis de Ambiente:**
    Crie um arquivo `.env` na raiz do projeto e adicione suas chaves: 
@@ -74,6 +77,7 @@ O projeto foi construído utilizando as seguintes ferramentas e bibliotecas:
 5. **Inicie a aplicação:**
     ```bash
     streamlit run src/app.py
+    ```
 
     *A interface abrirá automaticamente no seu navegador padrão (geralmente em http://localhost:8501).*
 
@@ -92,3 +96,4 @@ O Bússola de Crédito é um projeto em contínua evolução. Para tornar as an�
 
 * **Busca Ampla na Internet:** Integração de ferramentas de pesquisa web (Web Search Agents) para permitir que o assistente busque contextos adicionais, notícias financeiras e orientações gerais que vão além da sua base de dados local.
 * **Integração com APIs Oficiais:** Conexão direta com APIs abertas do **Banco Central do Brasil (BCB)** (como a API do Sistema Gerenciador de Séries Temporais - SGS) e de outras **instituições financeiras** (Open Finance). Isso permitirá que o agente consulte taxas de juros atualizadas em tempo real, novos tetos regulatórios e condições de mercado atuais para fundamentar ainda mais os seus cálculos e conselhos.
+* **Busca de Dívidas no Mercado:** Conexão direta com APIs fechadas (sob concentimento) do **Banco Central do Brasil (BCB/BACEN)** e **Serasa** para composição de cálculos de endividamento atualizados.

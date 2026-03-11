@@ -94,8 +94,39 @@ if __name__ == "__main__":
 
         with st.chat_message("assistant"):
             with st.spinner("O Bússola está analisando..."):
-                # A lógica de decidir se aceita imagem ou texto está dentro do agente.py
-                resposta = analisar_com_rag(texto_contrato, [], prompt)
-                st.markdown(resposta)
-                
+                try:
+
+                    # 1. Tenta extrair o texto/imagem do documento (use a função existente no seu código)
+                    # texto_documento = extrair_texto(arquivo_enviado) 
+                    
+                    # VALIDAÇÃO: DOCUMENTO ILEGÍVEL OU VAZIO
+                    # Se a extração falhar ou retornar um texto muito curto (ex: apenas lixo ou em branco)
+                    if not texto_contrato or len(texto_contrato.strip()) < 15:
+                        st.warning("🧭 **Bússola:** Poxa, não consegui ler bem esse documento ou ele pode estar em branco. Pode tentar enviar um arquivo original ou PDF com imagem mais nítida?")
+                        st.stop() # Interrompe a execução para não gastar tokens chamando o LLM à toa
+
+                    # 2. Chama a inteligência do agente
+                    # A lógica de decidir se aceita imagem ou texto está dentro do agente.py
+                    resposta = analisar_com_rag(texto_contrato, [], prompt)
+                    st.markdown(resposta)
+
+                except Exception as e:
+                    # MAPEAMENTO DE ERROS DE API E SISTEMA PARA A PERSONA
+                    erro_str = str(e).lower()
+                    
+                    if "rate limit" in erro_str or "quota" in erro_str or "429" in erro_str:
+                        st.error("🧭 **Bússola:** Nossa, estou analisando muitos contratos ao mesmo tempo agora! Pode aguardar um minutinho e tentar novamente?")
+                    
+                    elif "timeout" in erro_str or "connection" in erro_str:
+                        st.error("🧭 **Bússola:** A conexão falhou e não consegui terminar a leitura. Vamos tentar de novo?")
+                    
+                    else:
+                        # Fallback: Captura qualquer outro erro de código Python sem assustar o usuário
+                        st.error("🧭 **Bússola:** Ops! Minha bússola interna sofreu uma interferência técnica e não consegui concluir a análise. Tente novamente em instantes.")
+                        
+                        # Dica: Deixe comentado o print do erro real apenas para o log do terminal (debug do desenvolvedor)
+                        # print(f"Erro real ocorrido: {e}")
+                        st.stop() 
+                        
         st.session_state.messages.append({"role": "assistant", "content": resposta})
+

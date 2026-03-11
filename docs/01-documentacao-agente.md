@@ -161,9 +161,6 @@ A regra de ouro do RAG: a IA só pode responder com base no que está no texto r
 *Citações de Fonte:* Force o agente a indicar em qual página ou cláusula ele encontrou a informação. Exemplo: "Segundo a cláusula 7.2 do seu contrato, a multa por atraso é de 2%."
 
 **2. Validação de Cálculos Financeiros (Python Tool)**
-LLMs são ótimos com palavras, mas podem falhar em matemática complexa (juros compostos).
-
-*Não deixar a IA calcular "de cabeça":* Utilizar uma ferramenta de execução de código (Python) ou uma calculadora interna para processar o CET e o saldo devedor.
 
 *Verificação de Sanidade:* Configurar um filtro que sinalize se o resultado de um cálculo parecer impossível (ex: um juros de 5000% ao mês ou uma parcela negativa).
 

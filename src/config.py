@@ -22,11 +22,11 @@ def get_groq_llm():
     definidos na documentação do Bússola de Crédito.
     """
     if not GROQ_API_KEY:
-        raise ValueError("A chave GROQ_API_KEY não foi encontrada no arquivo .env")
+        raise ValueError("A chave GROQ_API_KEY não foi encontrada.")
     
     llm = ChatGroq(
-        model='llama-3.3-70b-versatile',
-        temperature=0.2,  # Baixa temperatura para evitar alucinações
+        model='llama-3.3-70b-versatile', # Modelo com alta capacidade de raciocínio e ferramentas
+        temperature=0.0,  # Baixa temperatura para evitar alucinações. Temperatura zero para máxima precisão em chamadas de função
         groq_api_key=GROQ_API_KEY, 
         max_retries=2
     )
