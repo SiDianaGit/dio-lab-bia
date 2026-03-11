@@ -5,6 +5,7 @@ from agente import analisar_com_rag
 from vector_store import criar_base_conhecimento
 import docx
 
+
 @st.cache_resource
 def inicializar_banco_vetorial():
     """Executa a criação da base de conhecimento apenas uma vez."""
@@ -96,12 +97,9 @@ if __name__ == "__main__":
             with st.spinner("O Bússola está analisando..."):
                 try:
 
-                    # 1. Tenta extrair o texto/imagem do documento (use a função existente no seu código)
-                    # texto_documento = extrair_texto(arquivo_enviado) 
-                    
                     # VALIDAÇÃO: DOCUMENTO ILEGÍVEL OU VAZIO
                     # Se a extração falhar ou retornar um texto muito curto (ex: apenas lixo ou em branco)
-                    if not texto_contrato or len(texto_contrato.strip()) < 15:
+                    if texto_contrato and len(texto_contrato.strip()) < 15:
                         st.warning("🧭 **Bússola:** Poxa, não consegui ler bem esse documento ou ele pode estar em branco. Pode tentar enviar um arquivo original ou PDF com imagem mais nítida?")
                         st.stop() # Interrompe a execução para não gastar tokens chamando o LLM à toa
 
@@ -127,6 +125,6 @@ if __name__ == "__main__":
                         # Dica: Deixe comentado o print do erro real apenas para o log do terminal (debug do desenvolvedor)
                         # print(f"Erro real ocorrido: {e}")
                         st.stop() 
-                        
+
         st.session_state.messages.append({"role": "assistant", "content": resposta})
 

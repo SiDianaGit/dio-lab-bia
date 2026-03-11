@@ -4,6 +4,7 @@ from langchain_google_genai import GoogleGenerativeAIEmbeddings
 from langchain_community.vectorstores import FAISS
 import re
 
+
 # O prompt baseia-se estritamente nas regras de segurança e persona da documentação.
 SYSTEM_PROMPT = """Você é o Bússola, um assistente de análise de dívidas. Sua prioridade máxima é a precisão factual. Você atua como um amigo experiente do mercado financeiro que traduz o "economês" para ajudar o usuário.
 Seu tom de voz deve ser Empático, Direto/Lúcido, Didático e Capacitador. Não julgue o gasto passado do usuário; foque na solução. Sempre que precisar calcular o valor final de uma dívida, use a fórmula de juros compostos e descreva o passo a passo para o usuário.
@@ -33,7 +34,7 @@ def get_bussola_model():
 
 
 def buscar_legislacao_relevante(pergunta):
-    
+
     embeddings = GoogleGenerativeAIEmbeddings(model="models/gemini-embedding-001")
     db = FAISS.load_local("faiss_regulatory_index", embeddings, allow_dangerous_deserialization=True)
     # Busca os 3 trechos mais importantes (ex: sobre INSS ou Desenrola)
