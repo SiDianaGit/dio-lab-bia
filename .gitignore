@@ -37,3 +37,6 @@ venv.bak/
 
 # VSCode
 .vscode/
+
+#faiss - Vector Database - Facebook AI Similarity Search
+faiss_regulatory_index
