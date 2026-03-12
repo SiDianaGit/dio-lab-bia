@@ -14,7 +14,7 @@ from vector_store import criar_base_conhecimento
 #if "LANGCHAIN_API_KEY" in st.secrets:
 os.environ["LANGCHAIN_TRACING_V2"] = st.secrets.get("LANGCHAIN_TRACING_V2", "true")
 os.environ["LANGCHAIN_API_KEY"] = st.secrets["LANGCHAIN_API_KEY"]
-os.environ["LANGCHAIN_PROJECT"] = st.secrets["LANGCHAIN_PROJECT"]
+os.environ["LANGCHAIN_PROJECT"] = st.secrets.get("LANGCHAIN_PROJECT", "Bussola_De_Credito_DEV")
 
 
 @st.cache_resource
