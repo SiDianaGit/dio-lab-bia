@@ -1,10 +1,14 @@
 import streamlit as st
 import PyPDF2
-from PIL import Image
-from agente import analisar_com_rag
-from vector_store import criar_base_conhecimento
 import docx
 import os
+import sys
+
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+from agente import analisar_com_rag
+from vector_store import criar_base_conhecimento
+
+
 
 # Mapeia os segredos do Streamlit para as variáveis de ambiente que o LangChain espera
 # Tenta ler do st.secrets, se não existir (ex: rodando script puro), não quebra o app
