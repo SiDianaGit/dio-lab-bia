@@ -9,13 +9,12 @@ from agente import analisar_com_rag
 from vector_store import criar_base_conhecimento
 
 
-
 # Mapeia os segredos do Streamlit para as variáveis de ambiente que o LangChain espera
 # Tenta ler do st.secrets, se não existir (ex: rodando script puro), não quebra o app
-if "LANGCHAIN_API_KEY" in st.secrets:
-    os.environ["LANGCHAIN_TRACING_V2"] = st.secrets.get("LANGCHAIN_TRACING_V2", "true")
-    os.environ["LANGCHAIN_API_KEY"] = st.secrets["LANGCHAIN_API_KEY"]
-    os.environ["LANGCHAIN_PROJECT"] = st.secrets.get("LANGCHAIN_PROJECT", "Bussola_De_Credito_PRD")
+#if "LANGCHAIN_API_KEY" in st.secrets:
+os.environ["LANGCHAIN_TRACING_V2"] = st.secrets.get("LANGCHAIN_TRACING_V2", "true")
+os.environ["LANGCHAIN_API_KEY"] = st.secrets["LANGCHAIN_API_KEY"]
+os.environ["LANGCHAIN_PROJECT"] = st.secrets["LANGCHAIN_PROJECT"]
 
 
 @st.cache_resource
