@@ -33,9 +33,7 @@ def get_bussola_model():
     """Recupera o modelo Groq configurado no config.py."""
     return get_groq_llm()
 
-
 def buscar_legislacao_relevante(pergunta):
-
     embeddings = GoogleGenerativeAIEmbeddings(model="models/gemini-embedding-001")
     db = FAISS.load_local("faiss_regulatory_index", embeddings, allow_dangerous_deserialization=True)
     # Busca os 3 trechos mais importantes (ex: sobre INSS ou Desenrola)
@@ -88,7 +86,6 @@ def analisar_com_rag(texto_documento, imagens_documento, mensagem_usuario):
     # 1. Recuperamos o LLM configurado no Groq
     llm = get_bussola_model()
     
-
     # 2. BUSCA NO VECTOR_DB: Onde a mágica acontece
     # Buscamos nas leis (Regulatory) o que faz sentido para a dúvida atual
     contexto_lei = buscar_legislacao_relevante(mensagem_usuario)

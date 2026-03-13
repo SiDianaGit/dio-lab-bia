@@ -99,8 +99,8 @@ if __name__ == "__main__":
                             )
                             texto_contrato = resposta_modelo.text # <-- CORRIGIDO AQUI
                             
-                            print("\n--- Resposta do Modelo Gemini ---")
-                            print(texto_contrato)                        
+                            #print("\n--- Resposta do Modelo Gemini ---")
+                            #print(texto_contrato)                        
                             
                         except Exception as e:
                             print(f"Ocorreu um erro durante o processamento do PDF: {e}")

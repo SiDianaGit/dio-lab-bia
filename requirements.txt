@@ -13,6 +13,3 @@ langchain-text-splitters
 faiss-cpu
 google-genai
 langsmith
-pytesseract
-pdf2image
-pillow

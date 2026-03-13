@@ -38,6 +38,16 @@ O projeto foi construído utilizando as seguintes ferramentas e bibliotecas:
 ├── requirements.txt            # Dependências do projeto
 └── README.md                   # Esta documentação
 ```
+# Assets
+Esta pasta é destinada a recursos visuais do projeto:
+
+* Diagramas de arquitetura 
+    - diagrama_arquitetura_solução.xml e (.pdf)
+* Screenshots da aplicação
+    - Testes da aplicação
+    - Métricas
+
+
 
 ## 🚀 Como Executar Localmente
 
