@@ -1,5 +1,7 @@
+import time
+import tempfile
 import streamlit as st
-import PyPDF2
+import google.generativeai as genai
 import docx
 import os
 import sys
@@ -15,6 +17,8 @@ from vector_store import criar_base_conhecimento
 os.environ["LANGCHAIN_TRACING_V2"] = st.secrets.get("LANGCHAIN_TRACING_V2", "true")
 os.environ["LANGCHAIN_API_KEY"] = st.secrets["LANGCHAIN_API_KEY"]
 os.environ["LANGCHAIN_PROJECT"] = st.secrets.get("LANGCHAIN_PROJECT", "Bussola_De_Credito_DEV")
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+genai.configure(api_key=GEMINI_API_KEY)
 
 
 @st.cache_resource
@@ -53,14 +57,69 @@ if __name__ == "__main__":
             for file in uploaded_files:
                 nome_arquivo = file.name.lower()
                 try:
-                    # 2. Lógica para PDF
+
                     if nome_arquivo.endswith('.pdf'):
-                        reader = PyPDF2.PdfReader(file)
-                        for page in reader.pages:
-                            texto_extraid = page.extract_text()
-                            if texto_extraid:
-                                texto_contrato += texto_extraid + "\n"
-                    
+                        try:
+                            # 1. Salvar o arquivo do Streamlit temporariamente no disco
+                            with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as temp_pdf:
+                                temp_pdf.write(file.read())
+                                caminho_temp = temp_pdf.name
+
+                            # 2. Fazer o upload para o Gemini usando o caminho físico
+                            arquivo_upload = genai.upload_file(
+                                path=caminho_temp,
+                                display_name=f"anexo_{file.name}"
+                            )
+                            
+                            # Aguardar até que o arquivo esteja pronto para uso
+                            while genai.get_file(arquivo_upload.name).state.name == 'PROCESSING':
+                                print('.', end='', flush=True)
+                                time.sleep(5) 
+
+                            # 3. Estruturar o conteúdo usando a URI correta do Gemini
+                            conteudo_para_analise = [
+                                {
+                                    'text': "Gere um arquivo texto (TXT) a partir das informações constantes do arquivo anexo. Inclua todos os dados estruturados que conseguir identificar."
+                                },
+                                {
+                                    'file_data': {
+                                        'mime_type': 'application/pdf',
+                                        'file_uri': arquivo_upload.uri 
+                                    }
+                                }
+                            ]
+
+                            modelo_para_analise = "gemini-2.5-flash" 
+                            print(f"Enviando arquivo para o modelo '{modelo_para_analise}'...")
+                            model_instance = genai.GenerativeModel(modelo_para_analise)
+                            
+                            # 4. Extrair apenas o TEXTO da resposta do modelo
+                            resposta_modelo = model_instance.generate_content(
+                                contents=conteudo_para_analise
+                            )
+                            texto_contrato = resposta_modelo.text # <-- CORRIGIDO AQUI
+                            
+                            print("\n--- Resposta do Modelo Gemini ---")
+                            print(texto_contrato)                        
+                            
+                        except Exception as e:
+                            print(f"Ocorreu um erro durante o processamento do PDF: {e}")
+                            st.error(f"Erro ao processar o PDF: {e}")
+
+                        finally:
+                            # Limpar o arquivo no Gemini
+                            if 'arquivo_upload' in locals() and arquivo_upload:
+                                print(f"\nExcluindo arquivo '{arquivo_upload.display_name}' do Gemini...")
+                                try:
+                                    genai.delete_file(arquivo_upload.name)
+                                    print("Arquivo excluído com sucesso.")
+                                except Exception as e:
+                                    print(f"Erro ao excluir arquivo do Gemini: {e}")
+                                    
+                            # Limpar o arquivo temporário do disco local
+                            if 'caminho_temp' in locals() and os.path.exists(caminho_temp):
+                                os.remove(caminho_temp)
+
                     # 3. Lógica para TXT
                     elif nome_arquivo.endswith('.txt'):
                         # Decodifica o binário para string
@@ -116,7 +175,11 @@ if __name__ == "__main__":
 
                     # 2. Chama a inteligência do agente
                     # A lógica de decidir se aceita imagem ou texto está dentro do agente.py
+                    
+                    print(texto_contrato)
+
                     resposta = analisar_com_rag(texto_contrato, [], prompt)
+                    
                     st.markdown(resposta)
 
                 except Exception as e:
