@@ -44,6 +44,7 @@ Nosso impacto é medido em dignidade retomada e famílias que voltam a consumir 
 
 ## Link do Vídeo
 
-> Cole aqui o link do seu pitch (YouTube, Loom, Google Drive, etc.)
+> Cole aqui o link do seu pitch
 
-[Link do vídeo]
+https://www.loom.com/share/e45bb28b9d504b95838c6db2c2275a28
+
