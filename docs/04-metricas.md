@@ -50,7 +50,7 @@ Crie testes simples para validar seu agente:
 ### Teste 5: Validação de formatação monetária
 - **Pergunta:** "Quais são os valores exatos cobrados neste boleto?"
 - **Resposta esperada:** Agente lista os valores com a formatação monetária correta e padronizada (ex: R$ 150,00), aplicando os guardrails de Regex sem gerar duplicações (como RR$).
-- **Resultado:** [ ] Correto  [ ] Incorreto
+- **Resultado:** [X] Correto  [ ] Incorreto
 
 ---
 
@@ -59,19 +59,19 @@ Crie testes simples para validar seu agente:
 Após os testes, registre suas conclusões:
 
 **O que funcionou bem:**
-- [Liste aqui]
+- Após ajustes, o assistente respondeu conforme esperado para questões de produtos de pessoa física, respeitando as regras enviadas pelo system prompt.
 
 **O que pode melhorar:**
-- [Liste aqui]
+- A interface permite que o usuário faça o upload de múltiplos arquivos, mas não possui um limite podendo gerar altos custos de utilização das APIs de LLM como um todo.
 
 ---
 
 ## Métricas Avançadas (Opcional)
 
-Para quem quer explorar mais, algumas métricas técnicas de observabilidade também podem fazer parte da sua solução, como:
+Utilização do LangSmith para obter as métricas da aplicação:
 
 - Latência e tempo de resposta;
 - Consumo de tokens e custos;
 - Logs e taxa de erros.
 
-Ferramentas especializadas em LLMs, como [LangWatch](https://langwatch.ai/) e [LangFuse](https://langfuse.com/), são exemplos que podem ajudar nesse monitoramento. Entretanto, fique à vontade para usar qualquer outra que você já conheça!
+** Imagens disponíveis na pasta /assts **

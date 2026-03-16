@@ -20,7 +20,7 @@ O projeto foi construído utilizando as seguintes ferramentas e bibliotecas:
 * **Google Generative AI Embeddings:** Geração de embeddings (`models/gemini-embedding-001`) para a base de documentos.
 * **Groq:** Provedor do LLM principal responsável por interpretar e responder às dúvidas.
 * **[FAISS](https://github.com/facebookresearch/faiss):** Banco de dados vetorial otimizado para busca de similaridade local.
-* **PyPDF2 & python-docx:** Bibliotecas para extração de texto estruturado dos arquivos enviados pelo usuário.
+* **LLM Google gemini-2.5-flash** Modelo para extração de texto estruturado dos arquivos PDF e imagens (OCR) enviados pelo usuário.
 
 ## 📁 Estrutura do Projeto
 

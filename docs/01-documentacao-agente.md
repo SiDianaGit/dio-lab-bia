@@ -17,7 +17,7 @@ Um simulador de dívidas que use RAG para ler contratos bancários e identificar
 
 Este é um problema que atinge mais de 70 milhões de brasileiros (segundo dados da Serasa/CNC). O público-alvo para um agente de RAG focado em reestruturação de dívidas não é um bloco único; ele se divide em perfis com dores bem específicas.
 
-Grupos de público-alvo:
+#### Grupos de público-alvo:
 
 **1. O "Enrolado" com Cartão de Crédito e Cheque Especial**
 Este é o maior volume de usuários. Pessoas que usam o crédito para cobrir despesas básicas e entraram na bola de neve dos juros compostos.
@@ -28,6 +28,7 @@ Este é o maior volume de usuários. Pessoas que usam o crédito para cobrir des
 
 **O que o agente resolve:** Explica o que acontece se ele parar de pagar o mínimo e propõe uma estratégia de "bola de neve" (quitar a maior taxa primeiro).
 
+
 **2. O Aposentado e Pensionista "Consignado"**
 Um público extremamente vulnerável e alvo constante de assédio comercial e fraudes.
 
@@ -36,6 +37,7 @@ Um público extremamente vulnerável e alvo constante de assédio comercial e fr
 **A dor:** Falta de margem para viver e dificuldade em entender contratos complexos ou identificar cobranças de seguros não solicitados (venda casada).
 
 **O que o agente resolve:** Analisa o contrato de consignado (via RAG) para verificar se a taxa de juros está acima do teto do INSS e orienta sobre a portabilidade para bancos com taxas menores.
+
 
 **3. O Pequeno Empreendedor (MEI/PJ)**
 Muitos brasileiros misturam as contas da empresa com as pessoais e acabam devendo em ambas as frentes.
@@ -46,6 +48,7 @@ Muitos brasileiros misturam as contas da empresa com as pessoais e acabam devend
 
 **O que o agente resolve:** Ajuda a priorizar dívidas que têm garantias (risco de perda de patrimônio) e simula o impacto de trocar uma dívida cara de pessoa física por uma linha de crédito PJ mais barata.
 
+
 **4. Candidatos aos Programas de Governo (Desenrola)**
 Pessoas que esperam por mutirões de negociação mas não sabem se a oferta recebida é realmente vantajosa.
 
@@ -54,6 +57,7 @@ Pessoas que esperam por mutirões de negociação mas não sabem se a oferta rec
 **A dor:** "Estão me oferecendo 90% de desconto, mas o valor à vista ainda é alto. Devo parcelar ou esperar mais?".
 
 **O que o agente resolve:** Cruza os dados da oferta com as regras vigentes do Desenrola ou programas similares para dizer se aquele é o "momento de ouro" para fechar o acordo.
+
 
 ---
 
@@ -130,12 +134,12 @@ Diretrizes de Tom de Voz
 flowchart TD
     A[Cliente] -->|Mensagem| B[Interface]
     B --> C[LLM]
-    C --> D[Base de Conhecimento]
+    C --> D[Base de Conhecimento/Regulatório]
     D --> C
-    C --> E[Validação]
-    E --> F[Correção]
-    F --> C
-    E --> G[Resposta]
+    C --> E[Validação/Guardrails]
+    E --> F[Resposta]
+    C --> G[Contratos e Faturas]
+    G --> C
 ```
 
 ### Componentes
@@ -143,9 +147,10 @@ flowchart TD
 | Componente | Descrição |
 | :--- | :--- |
 | Interface | Chatbot em Streamlit |
-| LLM | Gemini via API e Llama via API GROQ |
-| Base de Conhecimento | PDF, JSON, TXT, DOCX com dados regulatórios e taxas de mercado |
+| LLM | Assistente Llama via API GROQ, Consulta à base de conhecimento utilizando Gemini Embedding via API Google |
+| Base de Conhecimento | PDF e JSON com dados regulatórios e taxas de mercado |
 | Validação | Checagem de alucinações |
+| Contratos e Faturas | Upload de documentos do cliente (PDF, PNG, TXT e DOCX) realizados pelo próprio usuário para a análise do assistente |
 
 ---
 
